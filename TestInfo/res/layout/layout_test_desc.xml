@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DepartmentActivity"
+    android:background="@color/bg" >
+    
+    <RelativeLayout 
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+	    android:background="@color/head" >
+        
+        <TextView
+            android:id="@+id/tvTestDescHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/imgFavTest"
+            android:background="@color/head"
+            android:gravity="center"
+            android:padding="@dimen/padding_small"
+            android:textColor="@color/font_head"
+            android:textSize="@dimen/font_large" />
+
+        <ImageView
+            android:id="@+id/imgFavTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:background="@android:drawable/btn_star_big_off" />
+        
+    </RelativeLayout>
+
+    <ScrollView 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:padding="@dimen/padding_small"
+	    android:background="@color/bg" >
+	    
+        <LinearLayout 
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView
+                android:id="@+id/tvTestCode"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="bold"
+		        android:textColor="@color/font_blue"
+		        android:text="Test Code : "
+		        android:paddingBottom="@dimen/padding_small" />
+            
+            <TextView
+                android:id="@+id/tvTestDescAmount"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="bold"
+		        android:textColor="@color/font_blue"
+		        android:text="Test Amount : "
+		        android:paddingBottom="@dimen/padding_small" />
+            
+            <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="bold"
+		        android:textColor="@color/font_blue"
+		        android:text="Department :"
+		        android:paddingBottom="@dimen/padding_small" />
+            
+            <TextView
+		        android:id="@+id/tvDept"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="normal"
+		        android:textColor="@color/font"
+		        android:gravity="center"
+		        android:paddingBottom="@dimen/padding_large" />
+            
+            <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="bold"
+		        android:textColor="@color/font_blue"
+		        android:text="Description"
+		        android:gravity="center_vertical"
+		        android:drawableLeft="@drawable/description"
+		        android:paddingBottom="@dimen/padding_small" />
+		    
+		    <TextView
+		        android:id="@+id/tvTestDesc"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="normal"
+		        android:textColor="@color/font"
+		        android:paddingBottom="@dimen/padding_large" />
+		    
+		    <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="bold"
+		        android:textColor="@color/font_blue"
+		        android:text="Reference Range"
+		        android:gravity="center_vertical"
+		        android:paddingBottom="@dimen/padding_small"
+		        android:drawableLeft="@drawable/ref_value"
+		        android:drawablePadding="@dimen/padding_small" />
+		    
+		    <TextView
+		        android:id="@+id/tvRefVal"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="normal"
+		        android:textColor="@color/font"
+		        android:paddingBottom="@dimen/padding_large"
+		        android:drawablePadding="@dimen/padding_small" />
+		    
+		    <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="bold"
+		        android:textColor="@color/font_blue"
+		        android:text="Critical Values"
+		        android:gravity="center_vertical"
+		        android:paddingBottom="@dimen/padding_small"
+		        android:drawableLeft="@drawable/critical_value" />
+		    
+		    <TextView
+		        android:id="@+id/tvCriticalVal"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="normal"
+		        android:textColor="@color/font_red"
+		        android:paddingBottom="@dimen/padding_large" />
+		    
+		    <TextView
+		        android:id="@+id/tvRelatedTests"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textSize="@dimen/font_medium"
+		        android:textStyle="bold"
+		        android:textColor="@color/font_blue"
+		        android:text="Related Tests"
+		        android:gravity="center_vertical"
+		        android:paddingBottom="@dimen/padding_small"
+		        android:drawableLeft="@drawable/related" />
+		    
+		    <LinearLayout 
+		        android:id="@+id/layoutRelatedTests"
+		        android:orientation="vertical"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content">
+		        
+		    </LinearLayout>
+            
+        </LinearLayout>
+        
+	</ScrollView>
+    
+</LinearLayout>
