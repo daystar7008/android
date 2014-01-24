@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Hitech Test Details</string>
+    <string name="action_exit">Exit</string>
+
+    <string name="departments">Departments</string>
+    <string name="tests">Tests</string>
+    <string name="profiles">Profiles</string>
+    <string name="favorites">Favorites</string>
+    
+</resources>
