@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TestActivity"
+    android:background="@color/bg" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/searchlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/head" >
+
+            <TextView
+                android:id="@+id/tvTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imgViewSearch"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/imgViewSearch"
+                android:text="@string/tests"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/font_head"
+                android:visibility="visible" />
+            
+            <TextView
+                android:id="@+id/tvCode"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTest"
+                android:layout_toLeftOf="@+id/imgViewSearch"
+                android:text="Code : "
+                android:textColor="@color/font_blue"
+                android:textSize="@dimen/font_medium"
+                android:paddingLeft="@dimen/padding_large"
+                android:visibility="gone" />
+            
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCode"
+                android:layout_toLeftOf="@+id/imgViewSearch"
+                android:text="Amount : "
+                android:textColor="@color/font_blue"
+                android:textSize="@dimen/font_medium"
+                android:paddingLeft="@dimen/padding_large"
+                android:visibility="gone" />
+            
+            <ImageView
+                android:id="@+id/imgViewSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@android:drawable/ic_search_category_default" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoComplete"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imgViewSearch"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/imgViewSearch"
+                android:ems="10"
+                android:background="@drawable/auto_complete"
+                android:textColor="@color/font"
+                android:visibility="gone" >
+
+                <requestFocus />
+            </AutoCompleteTextView>
+
+        </RelativeLayout>
+    </LinearLayout>
+    
+    <ListView
+        android:id="@+id/listViewTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/master"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout" >
+
+        <requestFocus />
+        
+    </ListView>
+    
+    <LinearLayout 
+        android:id="@+id/master"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+	    android:layout_alignParentBottom="true">
+        
+        <include
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        layout="@layout/layout_master" />
+        
+    </LinearLayout>
+
+</RelativeLayout>
