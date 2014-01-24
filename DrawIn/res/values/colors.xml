@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#2C383A</color>
+    <color name="bgHead">#705E65</color>
+    
+    <color name="font">#FFFFFF</color>
+    
+    <color name="paperColor">#F6DF9A</color>
+    
+    <color name="black">#000000</color>
+    <color name="purple">#8258FA</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="dark_pink">#FF0040</color>
+    <color name="silver">#D8D8D8</color>
+    <color name="green">#01DF01</color>
+    <color name="yellow">#F7FE2E</color>
+    <color name="dark_blue">#0101DF</color>
+    <color name="red">#FF0000</color>
+    <color name="orange">#FF8000</color>
+    
+</resources>
