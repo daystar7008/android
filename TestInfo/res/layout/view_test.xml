@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listview_item"
+    android:padding="@dimen/padding_small" >
+    
+    <ImageView
+        android:id="@+id/imgFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/tests"
+        android:background="@android:drawable/btn_star_big_off" />
+   
+    <TextView
+        android:id="@+id/tvTestName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgFav"
+        android:textColor="@color/font_orange"
+        android:textSize="@dimen/font_medium"
+        android:textIsSelectable="false"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/tvTestRemarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgFav"
+        android:layout_below="@+id/tvTestName"
+        android:layout_toLeftOf="@+id/tvTestAmount"
+        android:textColor="@color/font"
+        android:textSize="@dimen/font_small"
+        android:textStyle="italic"
+        android:textIsSelectable="false"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/tvTestAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvTestRemarks"
+        android:textColor="@color/font_blue"
+        android:textSize="@dimen/font_small"
+        android:textIsSelectable="false"
+        android:singleLine="true" />
+
+</RelativeLayout>
