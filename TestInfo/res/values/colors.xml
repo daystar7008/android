@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- hi-tech color - #E4A256 -->
+    
+    <!-- <color name="head">#B5B2B0</color>
+    <color name="bg">#D4D4D4</color>
+    <color name="font">#4E5156</color> -->
+    
+    <color name="head">#B5B2B0</color>
+    <color name="bg">#D4D4D4</color>
+    <color name="font_orange">#F97407</color>
+    <color name="font_blue">#0F2244</color>
+    <color name="font">#4E5156</color>
+    <color name="font_red">#EB1212</color>
+    <color name="font_head">#100F0F</color>
+</resources>
