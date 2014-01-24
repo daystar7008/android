@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listview_item"
+    android:padding="@dimen/padding_small" >
+	
+    <ImageView
+        android:id="@+id/imgFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/tests"
+        android:background="@android:drawable/btn_star_big_off" />
+    
+    <TextView
+        android:id="@+id/tvProfName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/tvProfAmount"
+        android:layout_toRightOf="@+id/imgFav"
+        android:singleLine="true"
+        android:textColor="@color/font_orange"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/font_medium" />
+    
+    <TextView
+        android:id="@+id/tvProfAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:singleLine="true"
+        android:textColor="@color/font"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/font_small"
+        android:textStyle="italic" />
+	
+    <TextView
+        android:id="@+id/tvTestCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvProfName"
+        android:background="@drawable/count_item"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/font_blue"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/font_large" />
+
+    <TextView
+        android:id="@+id/tvProfDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvProfName"
+        android:layout_toLeftOf="@+id/tvTestCount"
+        android:layout_toRightOf="@+id/imgFav"
+        android:singleLine="true"
+        android:textColor="@color/font"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/font_small"
+        android:textStyle="italic" />
+
+</RelativeLayout>
