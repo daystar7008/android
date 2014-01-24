@@ -1,0 +1,362 @@
+package com.sukraa.testinfo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.sukraa.testinfo.db.TestAdapter;
+import org.sukraa.testinfo.db.Utility;
+
+import com.sukraa.testinfo.beans.Profile;
+import com.sukraa.testinfo.beans.Test;
+import com.sukraa.testinfo.beans.Item.ItemType;
+import com.sukraa.testinfo.listeners.MenuListener;
+import com.sukraa.testinfo.util.AutoCompleteAdapter;
+import com.sukraa.testinfo.util.CustomProfileListAdapter;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class ProfileActivity extends Activity implements MenuListener,
+		ListView.OnItemClickListener,
+		ListView.OnItemLongClickListener,
+		TextWatcher {
+
+	private List<Profile> profiles;
+	private TestAdapter testAdapter;
+	
+	private Button departmentMenu, testMenu, profileMenu, favoriteMenu;
+	private ListView listViewProfile = null;
+	private TextView tvDeptHead;
+	private AutoCompleteTextView autoComplete = null;
+	private ImageView imgViewSearch = null;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.layout_dept);
+		
+		tvDeptHead = (TextView)findViewById(R.id.tvDept);
+		tvDeptHead.setText(getResources().getString(R.string.profiles));
+		
+		listViewProfile = (ListView)findViewById(R.id.listViewDept);
+		listViewProfile.setOnItemClickListener(this);
+		listViewProfile.setOnItemLongClickListener(this);
+		
+		departmentMenu = (Button)findViewById(R.id.btnDeptMenu);
+		departmentMenu.setOnClickListener(this);
+		
+		testMenu = (Button)findViewById(R.id.btnTestMenu);
+		testMenu.setOnClickListener(this);
+		
+		profileMenu = (Button)findViewById(R.id.btnProfileMenu);
+		profileMenu.setOnClickListener(this);
+		profileMenu.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_menu_selected));
+		
+		favoriteMenu = (Button)findViewById(R.id.btnFavoriteMenu);
+		favoriteMenu.setOnClickListener(this);
+		
+		final InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		
+		autoComplete = (AutoCompleteTextView)findViewById(R.id.autoComplete);
+		autoComplete.addTextChangedListener(this);
+		autoComplete.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				TextView tv = (TextView)arg1;
+				for(Profile profile : profiles){
+					if(tv.getText().equals(profile.getProfileName())){
+						imm.hideSoftInputFromWindow(autoComplete.getWindowToken(), 0);
+						autoComplete.setText("");
+						autoComplete.setVisibility(AutoCompleteTextView.GONE);
+						tvDeptHead.setVisibility(TextView.VISIBLE);
+						Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+						intent.putExtra("profile", profile);
+						startActivity(intent);
+						break;
+					}
+				}
+			}
+		});
+		
+		imgViewSearch = (ImageView)findViewById(R.id.imgViewSearch);
+		imgViewSearch.setOnClickListener(new ImageView.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(tvDeptHead.getVisibility() == TextView.VISIBLE){
+					autoComplete.setVisibility(AutoCompleteTextView.VISIBLE);
+					tvDeptHead.setVisibility(TextView.GONE);
+					autoComplete.requestFocus();
+					imm.showSoftInput(autoComplete, InputMethodManager.SHOW_FORCED);
+				}
+				else{
+					autoComplete.setVisibility(AutoCompleteTextView.GONE);
+					tvDeptHead.setVisibility(TextView.VISIBLE);
+					autoComplete.setText("");
+					imm.hideSoftInputFromWindow(autoComplete.getWindowToken(), 0);
+				}
+			}
+		});
+		
+		fetchProfiles();
+		populateListView();
+	}
+	
+	private void fetchProfiles(){
+		profiles = new ArrayList<Profile>();
+		
+		try {
+			String query = "SELECT PfMt_Prof_Code, PfMt_Prof_Name, PfMt_Amount, PfMt_Remarks " +
+							 "FROM PfMt_Prof_Mast_T";
+			testAdapter = new TestAdapter(this).createDatabase().open();
+			
+			//executes query and gets the results into cursor
+			Cursor testdata = testAdapter.getTestData(query);
+
+			if(testdata.getCount() <= 0){
+				Toast.makeText(this, "No Records Found", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			do{
+				String profileCode = Utility.getColumnValue(testdata, "PfMt_Prof_Code");
+				String profileName = Utility.getColumnValue(testdata, "PfMt_Prof_Name");
+				String amount = Utility.getColumnValue(testdata, "PfMt_Amount");
+				String remarks = Utility.getColumnValue(testdata, "PfMt_Remarks");
+				
+				Log.d("Profile", profileCode + " : " + profileName);
+				
+				{
+					String subQuery = "SELECT TsMt_Dept_Code, TsMt_Test_Code, TsMt_Test_Name, TsMt_Test_Amount, TsMt_Test_Desc, " +
+										     "TsMt_Remarks, TsMt_Test_Unit, TsMt_Critical_Value, TsMt_Reference_Value  FROM PfMt_Prof_Mast_T " +
+									    "LEFT JOIN PfDt_Prof_Detail_T " +
+										  "ON PfMt_Prof_Mast_T.PfMt_Prof_Code = PfDt_Prof_Detail_T.PfDt_Prof_Code " +
+									    "LEFT JOIN  TsMt_Test_Mast_T " +
+									      "ON PfDt_Prof_Detail_T.PfDt_Test_Code = TsMt_Test_Mast_T.TsMt_Test_Code " + 
+									   "WHERE PfMt_Prof_Mast_T.PfMt_Prof_Code = '" + profileCode + "'";
+					
+					TestAdapter dbAdapter = new TestAdapter(this).createDatabase().open();
+					Cursor cursor = dbAdapter.getTestData(subQuery);
+					
+					if(cursor.getCount() > 0){
+						List<Test> tests = new ArrayList<Test>();
+						do {
+							Test test = new Test();
+							
+							String deptCode = Utility.getColumnValue(cursor, "TsMt_Dept_Code");
+							String testCode = Utility.getColumnValue(cursor, "TsMt_Test_Code");
+							String testName = Utility.getColumnValue(cursor, "TsMt_Test_Name");
+							String testAmount = Utility.getColumnValue(cursor, "TsMt_Test_Amount");
+							String testDesc = Utility.getColumnValue(cursor, "TsMt_Test_Desc");
+							String testRemarks = Utility.getColumnValue(cursor, "TsMt_Remarks");
+							String unit = Utility.getColumnValue(cursor, "TsMt_Test_Unit");
+							String criticalValue = Utility.getColumnValue(cursor, "TsMt_Critical_Value");
+							String refValue = Utility.getColumnValue(cursor, "TsMt_Reference_Value");
+							
+							Log.d("Profile - Test", testCode + " : " + testName);
+							
+							test.setDeptCode(deptCode);
+							test.setDeptCode(deptCode);
+							test.setTestCode(testCode);
+							test.setTestName(testName);
+							test.setAmount(Double.valueOf(testAmount));
+							test.setRemarks(testRemarks);
+							test.setDesc(testDesc);
+							//test.setUnit(Double.parseDouble(testUnit));
+							test.setReferenceValue(refValue);
+							test.setCriticalValue(criticalValue);
+							
+							tests.add(test);
+						} while (cursor.moveToNext());
+						dbAdapter.close();
+						
+						Profile profile = new Profile();
+						
+						profile.setProfileCode(profileCode);
+						profile.setProfileName(profileName);
+						profile.setTests(tests);
+						profile.setAmount(Double.valueOf(amount));
+						profile.setRemarks(remarks);
+						
+						profiles.add(profile);
+					}
+				}
+				
+			}while(testdata.moveToNext());
+			testdata.close();
+			testAdapter.close();
+		} catch (Exception e) {
+			Log.e("Connection problem", e.toString());
+			Toast.makeText(getApplicationContext(), "Couldn't connect to database", Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	private void populateListView(){
+			ArrayAdapter<Profile> adapter = new CustomProfileListAdapter(this, R.layout.view_profile, profiles);
+			listViewProfile.setChoiceMode(ListView.CHOICE_MODE_NONE);
+			listViewProfile.setAdapter(adapter);
+	}
+	
+	@Override
+	public void onDepartmentClick() {
+		Intent intent = new Intent(this, DepartmentActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+	}
+
+	@Override
+	public void onTestClick() {
+		Intent intent = new Intent(this, TestActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+	}
+
+	@Override
+	public void onProfileClick() {
+		//Toast.makeText(getApplicationContext(), "Profile Menu", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onFavoriteClick() {
+		Intent intent = new Intent(this, FavoriteActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btnDeptMenu:
+			onDepartmentClick();
+			break;
+		case R.id.btnTestMenu:
+			onTestClick();
+			break;
+		case R.id.btnProfileMenu:
+			onProfileClick();
+			break;
+		case R.id.btnFavoriteMenu:
+			onFavoriteClick();
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
+		Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+		intent.putExtra("profile", profiles.get(position));
+		startActivity(intent);
+	}
+
+	@Override
+	public void afterTextChanged(Editable s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		autoComplete.setAdapter(new AutoCompleteAdapter(this,
+				android.R.layout.simple_spinner_dropdown_item, s.toString(), ItemType.PROFILE));		
+	}
+	
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View v, int index, long arg3) {
+		final int position = index;
+		final String profileName = profiles.get(position).getProfileName();
+		try {
+			
+			String countQuery = "SELECT COUNT(*) AS count FROM FvMt_Favorite_Mast_T " +
+					"WHERE FvMt_Name ='" + profileName + "' AND FvMt_Type = 'P'";
+			
+			testAdapter = new TestAdapter(this).createDatabase().open();
+			Cursor countData = testAdapter.getTestData(countQuery);
+			final int count = Integer.parseInt(Utility.getColumnValue(countData, "count"));
+			
+			TextView view = new TextView(this);
+			view.setTextSize(getResources().getDimension(R.dimen.font_small));
+			view.setPadding(5, 5, 5, 5);
+			view.setTextColor(getResources().getColor(R.color.font));
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			
+			if(count == 0){
+				builder.setView(view);
+				view.setText("Add \"" + profiles.get(position).getProfileName().trim() + "\" to Favorites?");
+			}
+			else{
+				view.setText("Remove \"" + profiles.get(position).getProfileName().trim() + "\" from Favorites?");
+				builder.setView(view);
+			}
+			
+			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if(count == 0){
+						boolean status = testAdapter.addFavorite(profileName, "P");
+						if(status){
+							//Toast.makeText(DepartmentActivity.this, "\"" + deptName.trim() + "\"Added to Favorites", Toast.LENGTH_SHORT).show();
+							fetchProfiles();
+							populateListView();
+						}
+						else{
+							Toast.makeText(ProfileActivity.this, "Not Added To Favorites", Toast.LENGTH_SHORT).show();
+						}
+					}
+					else{
+						boolean status = testAdapter.removeFavorite(profileName, "P");
+						if(status){
+							//Toast.makeText(DepartmentActivity.this, "\"" + deptName.trim() + "\"Removed From Favorites", Toast.LENGTH_SHORT).show();
+							fetchProfiles();
+							populateListView();
+						}
+						else{
+							Toast.makeText(ProfileActivity.this, "Not Removed From Favorites", Toast.LENGTH_SHORT).show();
+						}
+					}
+				}
+			});
+			
+			builder.setNegativeButton("No", null);
+			
+			testAdapter.close();
+			builder.show();
+			
+		} catch (Exception e) {
+			Log.e("favorite", e.toString());
+		}
+		return true;
+	}
+	
+}
