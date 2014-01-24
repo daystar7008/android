@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    tools:context=".DepartmentActivity" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/searchlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/head" >
+
+            <TextView
+                android:id="@+id/tvDept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imgViewSearch"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/imgViewSearch"
+                android:text="@string/departments"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/font_head"
+                android:visibility="visible"
+        		android:singleLine="true" />
+            
+            <ImageView
+                android:id="@+id/imgViewSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@android:drawable/ic_search_category_default" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoComplete"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imgViewSearch"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/imgViewSearch"
+                android:ems="10"
+                android:background="@drawable/auto_complete"
+                android:textColor="@color/font"
+                android:visibility="gone"
+        		android:singleLine="true" >
+
+                <requestFocus />
+            </AutoCompleteTextView>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- android:background="#605B6E" -->
+    
+    <ListView
+        android:id="@+id/listViewDept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/master"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout" >
+
+    </ListView>
+
+    <LinearLayout 
+        android:id="@+id/master"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+	    android:layout_alignParentBottom="true">
+        
+        <include
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        layout="@layout/layout_master" />
+        
+    </LinearLayout>
+
+</RelativeLayout>
