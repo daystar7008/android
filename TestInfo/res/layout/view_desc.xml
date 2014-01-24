@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvDesc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:singleLine="false"
+    android:minLines="5"
+    android:background="@color/bg"
+    android:padding="@dimen/padding_small"
+    android:textSize="@dimen/font_medium"
+    android:textColor="@color/font"
+    android:textIsSelectable="false" />
+    
+
