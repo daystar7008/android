@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item 
+	    android:id="@+id/open"
+	    android:title="@string/view_notes"
+	    android:icon="@drawable/view_notes"
+	    android:showAsAction="never"/>
+	
+	<item 
+	    android:id="@+id/newNote"
+	    android:title="@string/new_note"
+	    android:icon="@drawable/new_note"
+	    android:showAsAction="never"/>
+	
+	<item 
+	    android:id="@+id/exit"
+	    android:title="@string/exit"
+	    android:icon="@android:drawable/ic_lock_power_off"
+	    android:showAsAction="never"/>
+	
+	<item 
+	    android:id="@+id/pencil"
+	    android:title="@string/pencil"
+	    android:icon="@drawable/pencil"
+	    android:showAsAction="always"/>
+	
+	<item 
+	    android:id="@+id/eraser"
+	    android:title="@string/eraser"
+	    android:icon="@drawable/eraser"
+	    android:showAsAction="always"/>
+	
+	<item 
+	    android:id="@+id/clear"
+	    android:title="@string/clear"
+	    android:icon="@drawable/clear"
+	    android:showAsAction="always"/>
+	
+	<item 
+	    android:id="@+id/save"
+	    android:title="@string/save"
+	    android:icon="@drawable/save"
+	    android:showAsAction="always"/>
+
+</menu>
