@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:orientation="horizontal" >
+	    
+		<Button 
+		    android:id="@+id/btnDeptMenu"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/departments"
+	        android:textSize="@dimen/font_small"
+	        android:textColor="@android:color/white"
+	        android:background="@drawable/btn_menu"
+	        android:drawableTop="@drawable/department"/>
+	    
+	    <Button
+	        android:id="@+id/btnTestMenu" 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/tests"
+	        android:textSize="@dimen/font_small"
+	        android:textColor="@android:color/white"
+	        android:background="@drawable/btn_menu"
+	        android:drawableTop="@drawable/test"/>
+	    
+	    <Button 
+	        android:id="@+id/btnProfileMenu"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/profiles"
+	        android:textSize="@dimen/font_small"
+	        android:textColor="@android:color/white"
+	        android:background="@drawable/btn_menu"
+	        android:drawableTop="@drawable/profile"/>
+	    
+	    <Button 
+	        android:id="@+id/btnFavoriteMenu"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/favorites"
+	        android:textSize="@dimen/font_small"
+	        android:textColor="@android:color/white"
+	        android:background="@drawable/btn_menu"
+	        android:drawableTop="@drawable/favorites"/>
+		
+	</LinearLayout>
+    
+</HorizontalScrollView>
