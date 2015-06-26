@@ -5,5 +5,8 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry exported="true" kind="lib" path="/media/rajesh/Workspace/Android_SDKs/sdk/extras/android/support/v4/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/media/rajesh/Workspace/JARs/Android_excel/jexcelapi/jxl.jar"/>
+	<classpathentry exported="true" kind="lib" path="/media/rajesh/Workspace/JARs/Ad_Networks/StartApp/Android-InApp SDK-InApp-3.0.2/StartAppInApp-3.0.2.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

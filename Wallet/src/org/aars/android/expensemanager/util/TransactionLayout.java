@@ -1,6 +1,6 @@
 package org.aars.android.expensemanager.util;
 
-import org.aars.android.expensemanager.R;
+import org.aars.android.wallet.R;
 
 import android.content.Context;
 import android.text.InputFilter;

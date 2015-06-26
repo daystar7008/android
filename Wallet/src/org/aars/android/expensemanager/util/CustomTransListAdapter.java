@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.aars.android.expensemanager.R;
+import org.aars.android.wallet.R;
 import org.aars.android.beans.Transaction;
 
 import android.content.Context;

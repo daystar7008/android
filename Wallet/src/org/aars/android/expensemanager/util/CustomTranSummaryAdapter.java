@@ -1,7 +1,8 @@
 package org.aars.android.expensemanager.util;
 
 import java.util.List;
-import org.aars.android.expensemanager.R;
+
+import org.aars.android.wallet.R;
 import org.aars.android.beans.Transaction;
 import org.aars.android.beans.Transaction.Type;
 

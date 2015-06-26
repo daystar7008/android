@@ -5,7 +5,7 @@
         <color android:color="@color/bg"/>
     </item>
     <item android:state_pressed="true">
-        <color android:color="@android:color/background_dark"/>
+        <color android:color="@android:color/background_light"/>
     </item>
 
 </selector>
